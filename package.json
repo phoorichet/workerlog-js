@@ -1,0 +1,17 @@
+{
+  "name": "workerlog",
+  "version": "0.0.1",
+  "description": "Cloudflare Worker log library",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Phoorichet Thepdusith",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.0"
+  }
+}
