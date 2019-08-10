@@ -1,9 +1,11 @@
 {
   "name": "workerlog",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Cloudflare Worker log library",
   "main": "index.js",
   "scripts": {
+    "dist": "mkdir -p dist && browserify lib/workerlog.js -o dist/workerlog.js",
+    "prepublishOnly": "npm test && safe-publish-latest && npm run dist",
     "test": "mocha"
   },
   "author": "Phoorichet Thepdusith",
@@ -12,6 +14,7 @@
     "axios": "^0.19.0"
   },
   "devDependencies": {
-    "mocha": "^6.2.0"
+    "mocha": "^6.2.0",
+    "safe-publish-latest": "^1.1.2"
   }
 }
