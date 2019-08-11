@@ -1,10 +1,11 @@
 {
   "name": "workerlog",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Cloudflare Worker log library",
   "main": "index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
+    "build-test": "babel example/test.js --out-dir example-test",
     "lint": "eslint src --ext .js",
     "prepublishOnly": "npm run lint && npm test && safe-publish-latest && npm run build",
     "test": "mocha"

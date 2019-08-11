@@ -3,7 +3,7 @@ const usernameRegEx = /^[0-9A-Fa-f]{40}$/
 const projectRegEx = /^[0-9A-Fa-f]{7}$/
 const hostnane = 'workerlog.dev'
 
-export class Dsn {
+export const Dsn = class {
   constructor(dsn) {
     const u = new URL(dsn)
     this._username = u.username
@@ -28,7 +28,7 @@ export class Dsn {
   }
 }
 
-export class Worker {
+export const Worker = class  {
   constructor(dsn, url = defaultUrl) {
     this._dsn = new Dsn(dsn)
     this._url = new URL(url)

@@ -1,4 +1,4 @@
-const Worker = require('../lib/workerlog.js')
+import { Worker} from '../lib/workerlog.js'
 
 const dsn =
   'https://cE0070046F0438F3c20F217FDc72F0281E188893@workerlog.dev/b350Fc2'
