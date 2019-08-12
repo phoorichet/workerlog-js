@@ -1,6 +1,6 @@
 {
   "name": "workerlog",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Cloudflare Worker log library",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build-test": "babel example/test.js --out-dir example-test",
     "lint": "eslint src --ext .js",
     "prepublishOnly": "npm run lint && npm test && safe-publish-latest && npm run build",
-    "test": "mocha"
+    "test": "mocha --require babel-register"
   },
   "author": "Phoorichet Thepdusith",
   "license": "ISC",
@@ -19,8 +19,10 @@
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
     "babel-eslint": "^10.0.2",
     "babel-preset-minify": "^0.5.0",
+    "babel-register": "^6.26.0",
     "mocha": "^6.2.0",
     "safe-publish-latest": "^1.1.2"
   }
