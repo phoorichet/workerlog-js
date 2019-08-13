@@ -2,6 +2,10 @@ const defaultUrl = 'https://stage-api.workerlog.dev/log'
 const usernameRegEx = /^[0-9A-Fa-f]{40}$/
 const projectRegEx = /^[0-9A-Fa-f]{7}$/
 const hostnane = 'workerlog.dev'
+const headers = {
+  'User-Agent': 'Workerlog/1.0 (https://workerlog.dev)',
+  'Content-Type': 'application/json'
+}
 
 // global variable to keep track of fetch event
 let _event, _dsn, _url
@@ -16,26 +20,44 @@ export const workerlog = {
 
   log: (...msg) => {
     if (!_event || _event.type != 'fetch')
-      throw 'fetch event is require. please setup fetch event using init().'
+      throw 'fetch event is required. please setup fetch event using init().'
 
     _event.waitUntil(sendlog(...msg))
-  },
-
-  createDsn: dsn => {
-    return new Dsn(dsn)
   }
 }
 
 const sendlog = (...msg) => {
-  const headers = {
-    'User-Agent': 'Workerlog/1.0',
-    'Content-Type': 'application/json'
+  const data = []
+  for (const m of msg) {
+    console.log(typeof m)
+    switch (typeof m) {
+      case 'string':
+        data.push({ t: 'string', v: m })
+        break
+      case 'number':
+        data.push({ t: 'number', v: m })
+        break
+      case 'boolean':
+        data.push({ t: 'boolean', v: m })
+        break
+      case 'object':
+        data.push({ t: 'object', v: m })
+        break
+      case 'array':
+        data.push({ t: 'string', v: m })
+        break
+      default:
+        data.push({ t: 'other', v: m })
+        break
+    }
   }
+
   const body = JSON.stringify({
     dsn: _dsn.toString(),
     ts: new Date().toISOString(),
-    msg: msg
+    msg: data
   })
+
   return fetch(_url.toString(), {
     method: 'POST',
     headers,
@@ -43,7 +65,7 @@ const sendlog = (...msg) => {
   })
 }
 
-const Dsn = class {
+export const Dsn = class {
   constructor(dsn) {
     const u = new URL(dsn)
     this._username = u.username

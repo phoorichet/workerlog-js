@@ -1,4 +1,4 @@
-import { workerlog } from '../lib/workerlog.js'
+import { Dsn } from '../lib/workerlog.js'
 import assert from 'assert'
 
 describe('Dns', () => {
@@ -7,7 +7,7 @@ describe('Dns', () => {
       'https://4F111da912f18eBA1218a2E31c67F5d75E06f61c@workerlog.dev/928A42a'
     ]
     for (const goodDsn of goodDsns) {
-      const d = workerlog.createDsn(goodDsn)
+      const d = new Dsn(goodDsn)
       assert.equal(d.toString(), goodDsn)
     }
   })
@@ -23,7 +23,7 @@ describe('Dns', () => {
 
     for (const badDsn of badDsns) {
       assert.throws(() => {
-        workerlog.createDsn(badDsn)
+        new Dsn(badDsn)
       }, `bad dsn should be thrown: ${badDsn}`)
     }
   })
