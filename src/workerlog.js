@@ -10,20 +10,18 @@ const headers = {
 // global variable to keep track of fetch event
 let _event, _dsn, _url
 
-export const workerlog = {
-  init: (event, dsn, url = defaultUrl) => {
-    if (!event || event.type !== 'fetch') throw 'fetch event is required'
-    _dsn = new Dsn(dsn)
-    _url = new URL(url)
-    _event = event
-  },
+export const init = (event, dsn, url = defaultUrl) => {
+  if (!event || event.type !== 'fetch') throw 'workerlog: fetch event is required'
+  _dsn = new Dsn(dsn)
+  _url = new URL(url)
+  _event = event
+}
 
-  log: (...msg) => {
-    if (!_event || _event.type != 'fetch')
-      throw 'fetch event is required. please setup fetch event using init().'
+export const log = (...msg) => {
+  if (!_event || _event.type != 'fetch')
+    throw 'workerlog: fetch event is required. please setup fetch event using init()'
 
-    _event.waitUntil(sendlog(...msg))
-  }
+  _event.waitUntil(sendlog(...msg))
 }
 
 const sendlog = (...msg) => {
