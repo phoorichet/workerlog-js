@@ -8,22 +8,29 @@
     "build-test": "babel example/test.js --out-dir example-test",
     "lint": "eslint src --ext .js",
     "prepublishOnly": "npm run lint && npm test && safe-publish-latest && npm run build",
-    "test": "mocha --require babel-register"
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phoorichet/workerlog-js.git"
   },
   "author": "Phoorichet Thepdusith",
   "license": "ISC",
-  "dependencies": {
-    "core-js": "^3.2.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/register": "^7.5.5",
     "babel-eslint": "^10.0.2",
-    "babel-preset-minify": "^0.5.0",
-    "babel-register": "^6.26.0",
+    "babel-loader": "^8.0.6",
+    "babel-preset-minify": "^0.5.1",
+    "core-js": "^3.2.0",
+    "eslint": "^6.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
     "mocha": "^6.2.0",
+    "prettier": "^1.18.2",
     "safe-publish-latest": "^1.1.2"
   }
 }
