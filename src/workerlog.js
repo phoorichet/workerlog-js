@@ -9,15 +9,22 @@ const headers = {
 
 // global variable to keep track of fetch event
 let _event, _dsn, _url
+let _enabled = true
 
 export const init = (event, dsn, url = defaultUrl) => {
-  if (!event || event.type !== 'fetch') throw 'workerlog: fetch event is required'
+  if (!event || event.type !== 'fetch')
+    throw 'workerlog: fetch event is required'
   _dsn = new Dsn(dsn)
   _url = new URL(url)
   _event = event
 }
 
+export const setEnabled = enabled => {
+  _enabled = enabled
+}
+
 export const log = (...msg) => {
+  if (!_enabled) return
   if (!_event || _event.type != 'fetch')
     throw 'workerlog: fetch event is required. please setup fetch event using init()'
 
@@ -27,7 +34,6 @@ export const log = (...msg) => {
 const sendlog = (...msg) => {
   const data = []
   for (const m of msg) {
-    console.log(typeof m)
     switch (typeof m) {
       case 'string':
         data.push({ t: 'string', v: m })
@@ -40,9 +46,6 @@ const sendlog = (...msg) => {
         break
       case 'object':
         data.push({ t: 'object', v: m })
-        break
-      case 'array':
-        data.push({ t: 'string', v: m })
         break
       default:
         data.push({ t: 'other', v: m })
